@@ -1,6 +1,6 @@
 #Task 3
 
-line_3 = 'Hello'
+line_3 = 'Hello world'
 #line_3 = input('Введите строку: ')
 
-print(f'Длина строки = {len(line_3)}')
+print('Количество слов =',len(line_3.split()))
