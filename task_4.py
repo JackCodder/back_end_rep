@@ -6,5 +6,7 @@ class Person:
        def __str__(self):
            return f"имя - {self.name}, возраст - {self.age} лет"
 
+
 person = Person("Вася", 20)
+
 print(person)
