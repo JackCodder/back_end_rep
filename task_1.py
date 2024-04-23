@@ -3,14 +3,14 @@ class Rectangle:
         self.a = a
         self.b = b
 
-    def get_square(self):
+    def print_square(self):
         print('Площадь =',self.a * self.b)
 
-    def get_perimeter(self):
+    def print_perimeter(self):
         print('Периметр =', 2 * (self.a + self.b))
               
 
 rectangle = Rectangle()
 
-rectangle.get_square()
-rectangle.get_perimeter()
+rectangle.print_square()
+rectangle.print_perimeter()
