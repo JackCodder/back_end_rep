@@ -1,4 +1,10 @@
 QuerySet
+In [1]: models.Birds.objects.all()
+Out[1]: <QuerySet [<Birds: Гусь>, <Birds: Утка>, <Birds: Куропатка>, <Birds: Рябчик>, <Birds: Лебедь>]>
+
+In [2]: models.Birds.objects.values()
+Out[2]: <QuerySet [{'id': 1, 'name': 'Гусь', 'kind': 'anseriformes', 'information': 'Длинная шея', 'population': 5, 'is_rare': False}, {'id': 2, 'name': 'Утка', 'kind': 'anseriformes', 'information': 'Умеет плавать', 'population': 5, 'is_rare': False}, {'id': 3, 'name': 'Куропатка', 'kind': 'galliformes', 'information': '', 'population': 1, 'is_rare': True}, {'id': 4, 'name': 'Рябчик', 'kind': 'galliformes', 'information': '', 'population': 5, 'is_rare': False}, {'id': 
+5, 'name': 'Лебедь', 'kind': 'anseriformes', 'information': 'Красивая птица', 'population': 3, 'is_rare': True}]>
 
 In [3]: models.Animal.objects.all()
 Out[3]: <QuerySet [<Animal: Зебра>, <Animal: Манула>, <Animal: Белый медведь>, <Animal: Геккон>, <Animal: Дельфин>]>
