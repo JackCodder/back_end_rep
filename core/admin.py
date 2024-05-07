@@ -3,4 +3,5 @@ from . import models
 
 
 admin.site.register(models.Animal)
-admin.site.register(models.Insects)
+admin.site.register(models.Birds)
+admin.site.register(models.Staff)
