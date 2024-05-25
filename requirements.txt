@@ -1,3 +1,5 @@
 django
 # flake8
 pillow
+django-filter
+djangorestframework
