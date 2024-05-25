@@ -1,8 +1,11 @@
 from typing import Any
 from django.shortcuts import render
 from django.http import HttpResponse
-from core import models, forms
+from core import models, forms, filters, serializers
 from django.views.generic import ListView, TemplateView, DetailView, RedirectView, FormView
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
 
 class ClassBasedIndex(TemplateView):
@@ -41,13 +44,24 @@ class AnimalList(ListView):
     context_object_name = 'animals'
     template_name = 'core/animal_list.html'
 
+    def get_filters(self):
+        return filters.Animal(self.request.GET)
+    
+    def get_queryset(self):
+        return self.get_filters().qs
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['filters'] = self.get_filters()
+        return context
+
 
 class AnimalDetail(DetailView):
     model = models.Animal
     context_object_name = 'animal'
     template_name = 'core/animal_detail.html'
 
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+    def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
         context['additioonal_info'] = 'Режим работы: Каждый день 10:00 - 21:00'
         return context
@@ -64,6 +78,29 @@ class SimpleForm(FormView):
     success_url = '/index/'
 
     def form_valid(self, form) -> HttpResponse:
-        
         print(form.cleaned_data)
         return super().form_valid(form)
+    
+
+class AnimalList(APIView):
+    def get(self, request):
+        qs = models.Animal.objects.all()
+        serializer = serializers.Animal(qs, many=True)
+
+        return Response(data=serializer.data)
+    
+    def post(self, request):
+        serializer = serializers.Animal(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response({'message': 'OK'})
+    
+
+class AnimalList(ModelViewSet):
+    queryset = models.Animal.objects.all()
+    filterset_class = filters.Animal
+    serializer_class = serializers.Animal
+
+
+        
